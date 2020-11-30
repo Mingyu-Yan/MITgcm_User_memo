@@ -9,3 +9,20 @@ ExoCAM输出的温度是K，需要转化成摄氏度，注意陆地部分不能�
 taux和tauy可以直接乘-1然后代入
 
 QFLX --maybe better with surface salinity restoring 
+
+
+
+/MITgcm/doc/old_doc:
+a) if useRealFreshWaterFlux=F or (nonlinFreeSurf=0 & usingZCoords=T)
+ surForcT = oceQnet  + TRELAX - oceQsw
+ surForcS = oceSflux + SRELAX - [PmEpR*So]
+  (with So = local Sea-Surface Salinity (SSS) if convertFW2Salt=-1
+    and So = convertFW2Salt otherwise)
+ oceFWflx = [PmEpR]
+ TFLUX = surForcT + oceQsw + oceFreez
+ SFLUX = surForcS
+ 
+ 1) Here PmEpR is assumed to be the fresh-water mass flux
+   per surface area [units: kg/m^2/s] whereas the model variable
+   EmPmR is still a volume flux per surface area [units: m/s].
+ExoCAM输出的QFLX需要除以密度才是MITgcm模式输入的PmEpR 这里是否需要乘-1？
