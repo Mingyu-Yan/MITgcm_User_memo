@@ -1,2 +1,11 @@
-MITgcm不能将格点延伸到极地，只能到80N
+MITgcm不能将格点延伸到极地，只能到80N左右
 其他格点数值不稳定的问题通过将该处深度改为与相邻格点深度相同来处理
+直接使用地球海洋深度的数据可能会出错，因为很多相邻格点深度差别很大
+
+
+使用MITgcm tutorial_global_oce_latlon地形文件，ygorigin=-86，插值到4*5格点，最终格点数是72*43
+ExoCAM输出的温度是K，需要转化成摄氏度，注意陆地部分不能直接减去273.15K
+
+taux和tauy可以直接乘-1然后代入
+
+QFLX --maybe better with surface salinity restoring 
